@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Leaflet Preview</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+
+  <script src ="./data/kenan.geojson"></script>
+
+  <style type="text/css">
+    body {
+       margin: 0;
+       padding: 0;
+    }
+    html, body, #map{
+       width: 100%;
+       height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+
+      var map = L.map('map').setView([35.9045, -79.0462], 14.0);
+
+      var OSM = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	    minZoom: 12,
+      maxZoom: 16,
+	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+      var Photo1 = L.tileLayer('./TileLayer/{z}/{x}/{y}.png', {
+        minZoom: 12,
+        maxZoom: 16,
+        tms: false,
+        attribution: 'USGS'
+      });
+      
+      var Marker = L.marker ([35.9045, -79.0462]).addTo(map)
+          .bindPopup('Morrison Dorm: I lived here as a sophomore')
+          .openPopup();
+
+      var Tiles = {
+        "Open Street Map": OSM,
+        "UNC Campus Photo": Photo1
+
+      }
+      
+      var Vector = {
+        'Morrison Dorm':Marker
+      }
+
+
+      L.control.layers(Tiles,Vector).addTo(map);
+
+      var uncIcon = L.icon({
+                iconUrl: 'https://www.netclipart.com/pp/m/450-4508427_tar-heels-logo-transparent-transparent-background-nc-state.png',
+                iconSize: [30,30],
+                popupAnchor: [0,0]
+                });
+
+                var customPopup = "Kenan Stadium <br/><img src='https://upload.wikimedia.org/wikipedia/commons/7/70/Kenan_Memorial_Stadium.jpg'width='100px'/>";
+                
+                L.geoJSON(kenan, {
+                pointToLayer: function (feature, latlng) { 
+                return L.marker(latlng, {icon: uncIcon});}})
+                .bindPopup(customPopup)
+                .addTo(map);
+                
+  </script>
+</body>
+</html>;
