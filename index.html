@@ -31,7 +31,7 @@
   <script>
 
       var map = L.map('map').setView([35.9045, -79.0462], 14.0);
-	  {
+	  
       var OSM = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	    minZoom: 12,
       	maxZoom: 16,
@@ -44,7 +44,7 @@
         tms: true,
         attribution: 'USGS'
       }).addTo(map);
-	  };
+
       var Marker = L.marker ([35.9045, -79.0462]).addTo(map)
           .bindPopup('Morrison Dorm: I lived here as a sophomore')
           .openPopup();
