@@ -38,7 +38,7 @@
 	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-      var Photo1 = L.tileLayer('./TileLayer/{z}/{x}/{y}.png', {
+      var Photo = L.tileLayer('./TileLayer/{z}/{x}/{y}.png', {
         minZoom: 12,
         maxZoom: 16,
         tms: false,
@@ -51,7 +51,7 @@
 
       var Tiles = {
         "Open Street Map": OSM,
-        "UNC Campus Photo": Photo1,
+        "UNC Campus Photo": Photo,
 
       }
       
